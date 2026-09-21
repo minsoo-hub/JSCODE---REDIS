@@ -19,4 +19,11 @@ public class LikeController {
     ) {
         likeService.likePost(likePostRequestDto);
     }
+
+    @PostMapping("/redis")
+    public void LikePostWithRedis(
+        @RequestBody LikePostRequestDto likePostRequestDto
+    ) {
+        likeService.likePostWithRedis(likePostRequestDto);
+    }
 }
