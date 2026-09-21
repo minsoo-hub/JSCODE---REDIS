@@ -10,3 +10,14 @@
 | 실패율 | 0% |
 
 ![개선 전 k6 결과](docs/images/script_1-1_before.png)
+
+### script_1-2 결과 (개선 후)
+
+| 지표 | 값 |
+|---|---|
+| avg 응답시간 | 146.62ms |
+| p(95) 응답시간 | 299.31ms |
+| TPS | 6,479/s |
+| 실패율 | 0% |
+
+![개선 후 k6 결과](docs/images/script_1-2_after.png)
