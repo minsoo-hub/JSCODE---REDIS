@@ -61,3 +61,32 @@
 ![script_2-2 수량 결과](docs/images/script_2-2_수량결과.png)
 
 > 초기 수량 10,000개에서 713건의 감소 요청을 보냈고, 예상 수량(9,287개)과 실제 수량이 정확히 일치 → Redis `SETNX` 기반 락으로 동시성 문제가 해결됨을 확인
+
+----
+### script_3-1 결과 (개선 전)
+
+| 지표 | 값 |
+|---|---|
+| checks 성공률 | 100% (1,596/1,596) |
+| avg 응답시간 | 653.6ms |
+| p(95) 응답시간 | 1.18s |
+| max 응답시간 | 2.29s |
+| TPS | 148.1/s |
+| VUs | 100 |
+
+![script_3-1 결과](docs/images/script_3-1_before.png)
+
+### script_3-2 결과 (Redis ZSET 적용 후)
+
+| 지표 | 값 |
+|---|---|
+| checks 성공률 | 100% (128,794/128,794) |
+| avg 응답시간 | 7.5ms |
+| p(95) 응답시간 | 16.47ms |
+| max 응답시간 | 530.4ms |
+| TPS | 12,869.78/s |
+| VUs | 100 |
+
+![script_3-2 결과](docs/images/script_3-2_after.png)
+
+> 검색어 카운트 증가를 DB 조회+저장 대신 Redis `ZINCRBY`로, Top10 조회를 DB 정렬 쿼리 대신 `ZRANGE ... REV`로 대체 → avg 응답시간 약 87배, TPS 약 87배 개선
